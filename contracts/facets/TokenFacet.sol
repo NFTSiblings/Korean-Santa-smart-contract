@@ -31,7 +31,7 @@ library TokenFacetLib {
 
 /**************************************************************\
  * TokenFacet authored by Sibling Labs
- * Version 0.1.0
+ * Version 0.4.0
  * 
  * As part of KOREAN-SANTA Diamond
 /**************************************************************/
