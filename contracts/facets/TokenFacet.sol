@@ -15,7 +15,7 @@ library TokenFacetLib {
 
     struct state {
         mapping(address => uint8) minted;
-        bool mintActive;
+        bool mintStatus;
     }
 
     /**
@@ -47,7 +47,7 @@ contract TokenFacet is ERC1155 {
     function mint() external {
         TokenFacetLib.state storage s = TokenFacetLib.getState();
 
-        require(TokenFacetLib.getState().mintActive, "TokenFacet: minting is not available now");
+        require(TokenFacetLib.getState().mintStatus, "TokenFacet: minting is not available now");
         require(s.minted[msg.sender] == 0, "TokenFacet: this address has already minted");
 
         super._mint(msg.sender, 0, 1, "");
@@ -57,6 +57,10 @@ contract TokenFacet is ERC1155 {
     function setUri(string memory u) external {
         GlobalState.requireCallerIsAdmin();
         ERC1155Lib.getState()._uri = u;
+    }
+
+    function setMintStatus(bool s) external {
+        TokenFacetLib.getState().mintStatus = s;
     }
 
     // TEST FUNCTIONS - MUST BE REMOVED PRIOR TO MAINNET DEPLOYMENT
