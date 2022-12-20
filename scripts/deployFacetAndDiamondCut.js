@@ -1,14 +1,9 @@
-const facetName = "ERC721AFacet"
-const Diamond = "0x31D7Fe07B61CB11f66A502a6990926B18A633A77"
-// const DiamondInit = "0x2440FbB92BADC44dAb731634B46842a3D73EBC41"
-const DiamondInit = false
+const facetName = "TokenFacet"
+const Diamond = "0x4EefDf2217523873aA34f20289E9545de03c038e"
+const DiamondInit = "0x0470ee1b40aB769C09587Db379662f7972543A28"
+// const DiamondInit = false
 const excludeFunctions = [
-  "_setAux(address,uint64)",
-  "_safeMint(address,uint256)",
-  "_safeMint(address,uint256,bytes)",
-  "_getAux(address)",
-  "_burn(uint256)",
-  "_burn(uint256,bool)"
+  "supportsInterface(bytes4)"
 ]
 
 ////////////////////////////////////////////////////////////////////////////
