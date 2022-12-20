@@ -60,8 +60,8 @@ contract TokenFacet is ERC1155 {
         _;
     }
 
-    function reserve() external restrict {
-        super._mint(msg.sender, 0, 1, "");
+    function reserve(uint256 amount) external restrict {
+        super._mint(msg.sender, 0, amount, "");
     }
 
     function setUri(string memory u) external restrict {

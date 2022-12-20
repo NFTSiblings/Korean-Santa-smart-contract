@@ -1,4 +1,4 @@
-const contractName = "DiamondInit"
+const contractName = "TokenFacet"
 
 async function main() {
     const [deployer] = await ethers.getSigners()
