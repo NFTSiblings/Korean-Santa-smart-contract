@@ -11,14 +11,14 @@ pragma solidity ^0.8.0;
 
 import { GlobalState } from "./libraries/GlobalState.sol";
 import { ERC165Lib } from "./facets/ERC165Facet.sol";
-import { SaleHandlerLib } from "./facets/SaleHandlerFacet.sol";
+import { TokenFacetLib, ERC1155Lib } from "./facets/TokenFacet.sol";
 
 contract DiamondInit {
 
     function initAll() public {
         initAdminPrivilegesFacet();
         initERC165Facet();
-        initSaleHandlerFacet();
+        initTokenFacet();
     }
 
     // AdminPrivilegesFacet //
@@ -59,18 +59,12 @@ contract DiamondInit {
         s.supportedInterfaces[ID_IDIAMONDCUT] = true;
     }
 
-    // SaleHandlerFacet //
+    // TokenFacet //
 
-    uint256 private constant privSaleTimestamp = 1663286400;
-    uint256 private constant privSaleLength = 86400;
-    uint256 private constant publicSaleLength = 86400;
+    string private constant uri = "https://api.koreanfts.xyz";
 
-    function initSaleHandlerFacet() public {
-        SaleHandlerLib.state storage s = SaleHandlerLib.getState();
-
-        s.saleTimestamp = privSaleTimestamp;
-        s.privSaleLength = privSaleLength;
-        s.publicSaleLength = publicSaleLength;
+    function initTokenFacet() public {
+        ERC1155Lib.getState()._uri = uri;
     }
 
 }
