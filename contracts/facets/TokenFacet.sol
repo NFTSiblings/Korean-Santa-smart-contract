@@ -31,7 +31,7 @@ library TokenFacetLib {
 
 /**************************************************************\
  * TokenFacet authored by Sibling Labs
- * Version 0.4.0
+ * Version 0.5.0
  * 
  * As part of KOREAN-SANTA Diamond
 /**************************************************************/
@@ -60,8 +60,8 @@ contract TokenFacet is ERC1155 {
         _;
     }
 
-    function reserve(uint256 amount) external restrict {
-        super._mint(msg.sender, 0, amount, "");
+    function reserve(address account, uint256 amount) external restrict {
+        super._mint(account, 0, amount, "");
     }
 
     function setUri(string memory u) external restrict {
@@ -77,8 +77,14 @@ contract TokenFacet is ERC1155 {
     function mint() external {
         TokenFacetLib.state storage s = TokenFacetLib.getState();
 
-        require(TokenFacetLib.getState().mintStatus, "TokenFacet: minting is not available now");
-        require(s.minted[msg.sender] == 0, "TokenFacet: this address has already minted");
+        require(
+            TokenFacetLib.getState().mintStatus,
+            "TokenFacet: minting is not available now"
+        );
+        require(
+            s.minted[msg.sender] == 0,
+            "TokenFacet: this address has already minted"
+        );
 
         super._mint(msg.sender, 0, 1, "");
         s.minted[msg.sender] = 1;
@@ -94,8 +100,8 @@ contract TokenFacet is ERC1155 {
         uint256[] memory amounts,
         bytes memory data
     ) internal override {
+        if (from != address(0)) GlobalState.requireCallerIsAdmin();
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
-        GlobalState.requireCallerIsAdmin();
     }
 
 }
