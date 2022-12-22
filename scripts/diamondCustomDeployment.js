@@ -5,11 +5,12 @@ const diamondName = "KoreanSantaDiamond"
 const DiamondInit = "deploy"
 const existingFacets = { // Goerli
   // if DiamondCutFacet is not present, it will be deployed
-  DiamondCutFacet: "0xC38Bd9aE7ceeFA705579B71c0295Eb532d6B75D3",
-  DiamondLoupeFacet: "0xD470198BF69e77df0887Da5e5300C945A56F9aE0",
-  AdminPauseFacet: "0x326625BB25A27e24415D80448862ef876d4A4b80",
-  AdminPrivilegesFacet: "0x33d110b29E64F88374dceD2B6d2C66328F7428A0",
-  ERC165Facet: "0xE723DF1C9156bA14f795C320214E22df0d0939D6"
+  DiamondCutFacet: "0xA4B7B1FeE93500eCDa0854C7D4953DBEF9FfE999",
+  DiamondLoupeFacet: "0x6189F68F7274E5D8f3c00ED7743B0C5192908373",
+  AdminPauseFacet: "0x5B87F5555a44e13DeC8fa824b2dcb4785E36f690",
+  AdminPrivilegesFacet: "0xDf9Fba5f2F9C9dA9A65b873c6633d487F72438ba",
+  ERC165Facet: "0xEa775654F0271fA9b0895B44724B5783d5118235",
+  TokenFacet: "0xc9152C0303c2c49cf5bf80db917E7417fB5b16C9"
 }
 const excludeFunctions = {
   TokenFacet: [

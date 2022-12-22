@@ -41,8 +41,8 @@ contract DiamondInit {
     bytes4 private constant ID_IERC165 = 0x01ffc9a7;
     bytes4 private constant ID_IERC173 = 0x7f5828d0;
     bytes4 private constant ID_IERC2981 = 0x2a55205a;
-    bytes4 private constant ID_IERC721 = 0x80ac58cd;
-    bytes4 private constant ID_IERC721METADATA = 0x5b5e139f;
+    bytes4 private constant ID_IERC1155 = 0xd9b67a26;
+    bytes4 private constant ID_IERC1155METADATA = 0x0e89341c;
     bytes4 private constant ID_IDIAMONDLOUPE = 0x48e2b093;
     bytes4 private constant ID_IDIAMONDCUT = 0x1f931c1c;
 
@@ -52,8 +52,8 @@ contract DiamondInit {
         s.supportedInterfaces[ID_IERC165] = true;
         s.supportedInterfaces[ID_IERC173] = true;
         s.supportedInterfaces[ID_IERC2981] = true;
-        s.supportedInterfaces[ID_IERC721] = true;
-        s.supportedInterfaces[ID_IERC721METADATA] = true;
+        s.supportedInterfaces[ID_IERC1155] = true;
+        s.supportedInterfaces[ID_IERC1155METADATA] = true;
 
         s.supportedInterfaces[ID_IDIAMONDLOUPE] = true;
         s.supportedInterfaces[ID_IDIAMONDCUT] = true;
@@ -61,7 +61,7 @@ contract DiamondInit {
 
     // TokenFacet //
 
-    string private constant uri = "https://api.koreanfts.xyz";
+    string private constant uri = "https://dev.nftinkorea.com/1";
 
     function initTokenFacet() public {
         ERC1155Lib.getState()._uri = uri;
