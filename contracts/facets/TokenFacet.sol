@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 /**************************************************************\
  * TokenFacetLib authored by Sibling Labs
- * Version 0.1.0
+ * Version 1.0.0
  * 
  * This library is designed to work in conjunction with
  * TokenFacet - it facilitates diamond storage and shared
@@ -15,7 +15,7 @@ library TokenFacetLib {
 
     struct state {
         mapping(address => uint8) minted;
-        bool mintStatus;
+        uint256 timestamp;
     }
 
     /**
@@ -31,7 +31,7 @@ library TokenFacetLib {
 
 /**************************************************************\
  * TokenFacet authored by Sibling Labs
- * Version 0.5.0
+ * Version 1.0.0
  * 
  * As part of KOREAN-SANTA Diamond
 /**************************************************************/
@@ -40,12 +40,6 @@ import { GlobalState } from "../libraries/GlobalState.sol";
 import { ERC1155, ERC1155Lib } from "../ancillary/ERC1155DiamondStorage.sol";
 
 contract TokenFacet is ERC1155 {
-
-    // TEST FUNCTIONS - MUST BE REMOVED PRIOR TO MAINNET DEPLOYMENT //
-
-    function resetMinted(address addr) external {
-        TokenFacetLib.getState().minted[addr] = 0;
-    }
 
     // VARIABLE GETTERS //
 
@@ -68,8 +62,8 @@ contract TokenFacet is ERC1155 {
         ERC1155Lib.getState()._uri = u;
     }
 
-    function setMintStatus(bool s) external restrict {
-        TokenFacetLib.getState().mintStatus = s;
+    function beginMintingPhase() external restrict {
+        TokenFacetLib.getState().timestamp = block.timestamp;
     }
 
     // PUBLIC FUNCTIONS //
@@ -78,7 +72,8 @@ contract TokenFacet is ERC1155 {
         TokenFacetLib.state storage s = TokenFacetLib.getState();
 
         require(
-            TokenFacetLib.getState().mintStatus,
+            block.timestamp != 0 &&
+            block.timestamp <= s.timestamp + 86400,
             "TokenFacet: minting is not available now"
         );
         require(
@@ -86,7 +81,7 @@ contract TokenFacet is ERC1155 {
             "TokenFacet: this address has already minted"
         );
 
-        super._mint(msg.sender, 0, 1, "");
+        _mint(msg.sender, 0, 1, "");
         s.minted[msg.sender] = 1;
     }
 
